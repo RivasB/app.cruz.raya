@@ -1,4 +1,6 @@
 package ia;
+import javax.swing.JOptionPane;
+
 import interfaces.Board;
 public class MinMax {
     
@@ -17,10 +19,17 @@ public class MinMax {
 
     public void ia(int[][] board) {
         this.board = board;
-        if (isIAturn && !kb.isFull(board) && kb.gameOver(board) == -1) {
-                minMax(board);
+        if (kb.isFull(board)) {
+            if (kb.gameOver(board) == -1) {
+                boardView.boardRepaint(board);
+                JOptionPane.showMessageDialog(null, "El Juego queda tablas"); 
+            }
+        
         }
-        boardView.boardRepaint(board);
+        else { 
+            minMax(board);
+            boardView.boardRepaint(board);
+        }
     }
 
     private void minMax(int[][] board) {
@@ -34,7 +43,7 @@ public class MinMax {
                     board[i][j] = 2;
                     int tempRow = i;
                     int tempColumn = j;
-                    currentMax = abp.minValue(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    currentMax = abp.maxValue(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
                     board[i][j] = 0;
                     if (max<currentMax) {
                         max = currentMax;
@@ -45,8 +54,7 @@ public class MinMax {
             }
         }
         board[bestRow][bestColumn] = 2;
-        System.out.println("Puntuación para Fila: "+ bestRow + "Columna: " + bestColumn );
-        isIAturn = false;
+        System.out.println("Jugada de IA en: Fila: "+ bestRow + " Columna: " + bestColumn + " Puntuada en: " + max + "\n\n\n\n");
     }
 
     public void setIaTurn(boolean option) {

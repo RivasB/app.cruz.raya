@@ -1,5 +1,4 @@
 import interfaces.Board;
-
 public class App {
     public static void main(String[] args) throws Exception {
 
@@ -15,6 +14,5 @@ public class App {
             java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         new Board();
-    }
-        
+    }      
 }

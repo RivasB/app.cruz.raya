@@ -16,13 +16,17 @@ import ia.MinMax;
 public class Board extends JFrame {
 
 	int board[][] = new int[3][3];
-	int depth = 2;
+	int depth = 10;
 	MinMax ia = new MinMax(depth, this);
 
 	public Board() {
 		initComponents();
 		setVisible(true);
 		setLocationRelativeTo(null);
+		prepareBoard();
+	}
+
+	private void prepareBoard() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				board[j][i] = 0;
@@ -35,10 +39,9 @@ public class Board extends JFrame {
 			b0X0.setText("X");
 			board[i][j] = 1;
 			ia.ia(board);
-			ia.setIaTurn(true);
 		}
 		else {
-			System.out.println("pepe");
+			System.out.println("Aquí ya no se puede jugar");
 		}
 	}
 
@@ -111,6 +114,15 @@ public class Board extends JFrame {
 		playMove(b2X2, 2, 2);
 	}
 
+	private void menuItem1ActionPerformed() {
+		dispose();
+		new Board();
+	}
+
+	private void menuItem2ActionPerformed() {
+		dispose();
+	}
+
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		menuBar1 = new JMenuBar();
@@ -119,18 +131,19 @@ public class Board extends JFrame {
 		menuItem2 = new JMenuItem();
 		panel1 = new JPanel();
 		b0X0 = new JLabel();
-		b1X0 = new JLabel();
-		b2X0 = new JLabel();
 		b0X1 = new JLabel();
-		b1X1 = new JLabel();
-		b2X1 = new JLabel();
 		b0X2 = new JLabel();
+		b1X0 = new JLabel();
+		b1X1 = new JLabel();
 		b1X2 = new JLabel();
+		b2X0 = new JLabel();
+		b2X1 = new JLabel();
 		b2X2 = new JLabel();
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setResizable(false);
+		setUndecorated(true);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new CardLayout());
 
@@ -143,10 +156,12 @@ public class Board extends JFrame {
 
 				//---- menuItem1 ----
 				menuItem1.setText("Nuevo");
+				menuItem1.addActionListener(e -> menuItem1ActionPerformed());
 				menu1.add(menuItem1);
 
 				//---- menuItem2 ----
 				menuItem2.setText("Salir");
+				menuItem2.addActionListener(e -> menuItem2ActionPerformed());
 				menu1.add(menuItem2);
 			}
 			menuBar1.add(menu1);
@@ -173,36 +188,6 @@ public class Board extends JFrame {
 			});
 			panel1.add(b0X0);
 
-			//---- b1X0 ----
-			b1X0.setHorizontalTextPosition(SwingConstants.CENTER);
-			b1X0.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			b1X0.setHorizontalAlignment(SwingConstants.CENTER);
-			b1X0.setFont(new Font("Segoe UI", Font.BOLD, 170));
-			b1X0.setBackground(UIManager.getColor("Button.background"));
-			b1X0.setOpaque(true);
-			b1X0.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					b1X0MouseClicked();
-				}
-			});
-			panel1.add(b1X0);
-
-			//---- b2X0 ----
-			b2X0.setHorizontalTextPosition(SwingConstants.CENTER);
-			b2X0.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			b2X0.setHorizontalAlignment(SwingConstants.CENTER);
-			b2X0.setFont(new Font("Segoe UI", Font.BOLD, 170));
-			b2X0.setBackground(UIManager.getColor("Button.background"));
-			b2X0.setOpaque(true);
-			b2X0.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					b2X0MouseClicked();
-				}
-			});
-			panel1.add(b2X0);
-
 			//---- b0X1 ----
 			b0X1.setHorizontalTextPosition(SwingConstants.CENTER);
 			b0X1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -217,36 +202,6 @@ public class Board extends JFrame {
 				}
 			});
 			panel1.add(b0X1);
-
-			//---- b1X1 ----
-			b1X1.setHorizontalTextPosition(SwingConstants.CENTER);
-			b1X1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			b1X1.setHorizontalAlignment(SwingConstants.CENTER);
-			b1X1.setFont(new Font("Segoe UI", Font.BOLD, 170));
-			b1X1.setBackground(UIManager.getColor("Button.background"));
-			b1X1.setOpaque(true);
-			b1X1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					b1X1MouseClicked();
-				}
-			});
-			panel1.add(b1X1);
-
-			//---- b2X1 ----
-			b2X1.setHorizontalTextPosition(SwingConstants.CENTER);
-			b2X1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			b2X1.setHorizontalAlignment(SwingConstants.CENTER);
-			b2X1.setFont(new Font("Segoe UI", Font.BOLD, 170));
-			b2X1.setBackground(UIManager.getColor("Button.background"));
-			b2X1.setOpaque(true);
-			b2X1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					b2X1MouseClicked();
-				}
-			});
-			panel1.add(b2X1);
 
 			//---- b0X2 ----
 			b0X2.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -263,6 +218,36 @@ public class Board extends JFrame {
 			});
 			panel1.add(b0X2);
 
+			//---- b1X0 ----
+			b1X0.setHorizontalTextPosition(SwingConstants.CENTER);
+			b1X0.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			b1X0.setHorizontalAlignment(SwingConstants.CENTER);
+			b1X0.setFont(new Font("Segoe UI", Font.BOLD, 170));
+			b1X0.setBackground(UIManager.getColor("Button.background"));
+			b1X0.setOpaque(true);
+			b1X0.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					b1X0MouseClicked();
+				}
+			});
+			panel1.add(b1X0);
+
+			//---- b1X1 ----
+			b1X1.setHorizontalTextPosition(SwingConstants.CENTER);
+			b1X1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			b1X1.setHorizontalAlignment(SwingConstants.CENTER);
+			b1X1.setFont(new Font("Segoe UI", Font.BOLD, 170));
+			b1X1.setBackground(UIManager.getColor("Button.background"));
+			b1X1.setOpaque(true);
+			b1X1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					b1X1MouseClicked();
+				}
+			});
+			panel1.add(b1X1);
+
 			//---- b1X2 ----
 			b1X2.setHorizontalTextPosition(SwingConstants.CENTER);
 			b1X2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -277,6 +262,36 @@ public class Board extends JFrame {
 				}
 			});
 			panel1.add(b1X2);
+
+			//---- b2X0 ----
+			b2X0.setHorizontalTextPosition(SwingConstants.CENTER);
+			b2X0.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			b2X0.setHorizontalAlignment(SwingConstants.CENTER);
+			b2X0.setFont(new Font("Segoe UI", Font.BOLD, 170));
+			b2X0.setBackground(UIManager.getColor("Button.background"));
+			b2X0.setOpaque(true);
+			b2X0.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					b2X0MouseClicked();
+				}
+			});
+			panel1.add(b2X0);
+
+			//---- b2X1 ----
+			b2X1.setHorizontalTextPosition(SwingConstants.CENTER);
+			b2X1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			b2X1.setHorizontalAlignment(SwingConstants.CENTER);
+			b2X1.setFont(new Font("Segoe UI", Font.BOLD, 170));
+			b2X1.setBackground(UIManager.getColor("Button.background"));
+			b2X1.setOpaque(true);
+			b2X1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					b2X1MouseClicked();
+				}
+			});
+			panel1.add(b2X1);
 
 			//---- b2X2 ----
 			b2X2.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -294,7 +309,7 @@ public class Board extends JFrame {
 			panel1.add(b2X2);
 		}
 		contentPane.add(panel1, "card1");
-		setSize(655, 655);
+		setSize(660, 655);
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
@@ -306,13 +321,13 @@ public class Board extends JFrame {
 	private JMenuItem menuItem2;
 	private JPanel panel1;
 	public JLabel b0X0;
-	public JLabel b1X0;
-	public JLabel b2X0;
 	public JLabel b0X1;
-	public JLabel b1X1;
-	public JLabel b2X1;
 	public JLabel b0X2;
+	public JLabel b1X0;
+	public JLabel b1X1;
 	public JLabel b1X2;
+	public JLabel b2X0;
+	public JLabel b2X1;
 	public JLabel b2X2;
-	// JFormDesigner - End of variables declaration  //GEN-END:variable
+	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }

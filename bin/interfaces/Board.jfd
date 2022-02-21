@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "7.0.5.0.404" Java: "15.0.1" encoding: "UTF-8"
+JFDML JFormDesigner: "7.0.4.0.360" Java: "15.0.1" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -6,8 +6,9 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.CardLayout ) ) {
 			name: "this"
 			"defaultCloseOperation": 2
-			"resizable": false
 			"$sizePolicy": 1
+			"resizable": false
+			"undecorated": true
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
 				"columns": 3
 				"rows": 3
@@ -144,16 +145,18 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItem1"
 						"text": "Nuevo"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem1ActionPerformed", false ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItem2"
 						"text": "Salir"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem2ActionPerformed", false ) )
 					} )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 455, 75 )
-			"size": new java.awt.Dimension( 655, 655 )
+			"location": new java.awt.Point( 450, 75 )
+			"size": new java.awt.Dimension( 660, 655 )
 		} )
 	}
 }
