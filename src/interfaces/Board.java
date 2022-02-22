@@ -16,7 +16,7 @@ import ia.MinMax;
 public class Board extends JFrame {
 
 	int board[][] = new int[3][3];
-	int depth = 10;
+	int depth = 9;
 	MinMax ia = new MinMax(depth, this);
 
 	public Board() {

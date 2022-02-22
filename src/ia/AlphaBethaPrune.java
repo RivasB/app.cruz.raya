@@ -7,15 +7,12 @@ public class AlphaBethaPrune {
     
     public int maxValue(int[][] board, int depth, int alpha, int beta) {
         if (kb.gameOver(board) != -1) {
-            System.out.println("Gameover Max: " + kb.gameOver(board));
             return this.heuristics(board);
         } 
         else if(kb.isFull(board)) {
-            System.out.println("Tablero lleno en Max");
             return this.heuristics(board);
         }
         else if(primalDepth < depth) {
-            System.out.println("Profundidad alcanzada en Max");
             return this.heuristics(board);
         }
         else {
@@ -38,15 +35,12 @@ public class AlphaBethaPrune {
 
     public int minValue(int[][] board, int depth, int alpha, int beta) {
         if (kb.gameOver(board) != -1) {
-            System.out.println("Gameover Min: " + kb.gameOver(board));
             return this.heuristics(board);
         } 
         else if(kb.isFull(board)) {
-            System.out.println("Tablero lleno en Min");
             return this.heuristics(board);
         }
         else if(primalDepth < depth) {
-            System.out.println("Profundidad alcanzada en Min");
             return this.heuristics(board);
         }
         else {

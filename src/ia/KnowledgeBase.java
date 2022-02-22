@@ -5,48 +5,28 @@ public class KnowledgeBase {
 
     public int gameOver(int[][] board) {
         //i = filas j = columnas
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                //Ganador por columnas
-                if (j >= 0 && j <= 2 && i == 0) {
-                    if (board[i][j] == 1 && board[i+1][j] == 1 && board[i+2][j] == 1) {
-                        return 1;
-                    }
-                    else if (board[i][j] == 2 && board[i+1][j] == 2 && board[i+2][j] == 2) {
-                        return 2;
-                    }
-                    else System.out.println("Nadie gana por columnas"); return -1; 
-                }
-                //Ganador por columnas
-                if (i >= 0 && i <= 2 && j == 0) {
-                    if (board[i][j] == 1 && board[i][j+1] == 1 && board[i][j+2] == 1) {
-                        return 1;
-                    }
-                    else if (board[i][j] == 2 && board[i][j+1] == 2 && board[i][j+2] == 2) {
-                        return 2;
-                    }
-                    else System.out.println("Nadie gana por filas"); return -1;
-                }
-                //Ganador diagonal principal izquierda-derecha
-                if (i  == 0 && j == 0) {
-                    if (board[i][j] == 1 && board[i+1][j+1] == 1 && board[i+2][j+2] == 1) {
-                        return 1;
-                    }
-                    else if (board[i][j] == 2 && board[i+1][j+1] == 2 && board[i+2][j+2] == 2) {
-                        return 2;
-                    }
-                    else System.out.println("Nadie gana por diagonal derecha"); return -1;
-                }
-                //Ganador diagonal principal derecha-izquierda
-                if (i  == 2 && j == 2) {
-                    if (board[i][j] == 1 && board[i-1][j-1] == 1 && board[i-2][j-2] == 1) {
-                        return 1;
-                    }
-                    else if (board[i][j] == 2 && board[i-1][j-1] == 2 && board[i-2][j-2] == 2) {
-                        return 2;
-                    }
-                    else System.out.println("Nadie gana por diagonal izquierda"); return -1;
-                }
+        if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == 1) 
+        || (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == 1)) {
+            //Humano gana por diagonal
+            return 1;
+        }
+        if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == 2) 
+        || (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == 2)) {
+            //IA gana por diagonal
+            return 2;
+        }
+        for (int i = 0; i < 3; ++i) {
+            if (((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == 1) 
+            || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == 1))) {
+                //Humano gana por fila o columna;
+                return 1;
+            }
+        }
+        for (int i = 0; i < 3; ++i) {
+            if (((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == 2) 
+            || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == 2))) {
+                //IA gana por fila o columna;
+                return 2;
             }
         }        
         return -1;
@@ -62,134 +42,123 @@ public class KnowledgeBase {
         || board[2][0] == enemy
         || board[2][2] == enemy) 
         && board[1][1] == player) {
-            cost += 10000;
+            cost += 500;
         }
+        if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == player) 
+            || (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == player)) {
+                //Jugada ganadora por diagonal
+                cost += 100;
+        }
+        for (int i = 0; i < 3; ++i) {
+            if (((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == player) 
+            || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == player))) {
+                //Jugada ganadora por fila o columna;
+                cost += 100;
+            }
+        }
+        
+
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                //casos en los que el jugador hace una jugada ganadora
-                //llenando cualquier fila
-                if (j >= 0 && j <= 2 && i == 0) {
-                    if (board[i][j] == player && board[i+1][j] == player && board[i+2][j] == player) {
-                        cost += 500;
-                    }
-                }
-                //llenando cualquier columna
-                if (i >= 0 && i <= 2 && j == 0) {
-                    if (board[i][j] == player && board[i][j+1] == player && board[i][j+2] == player) {
-                        cost += 500;
-                    }
-                }
-                //llenando diagonal derecha
-                if (i  == 0 && j == 0) {
-                    if (board[i][j] == player && board[i+1][j+1] == player && board[i+2][j+2] == player) {
-                        cost += 500;
-                    }
-                }
-                //llenando diagonal izquierda
-                if (i  == 2 && j == 2) {
-                    if (board[i][j] == player && board[i-1][j-1] == player && board[i-2][j-2] == player) {
-                        cost += 500;
-                    }
-                }
-                
-                
-                //casos en los que el jugador tiene 2 jugadas adyacentes
-                //Por las columnas 2 llenas una vacía
-                if (j >= 0 && j <= 2 && i == 0) {
-                    if (board[i][j] == player && board[i+1][j] == player && board[i+2][j] == 0) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == player && board[i+1][j] == 0 && board[i+2][j] == player) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == 0 && board[i+1][j] == player && board[i+2][j] == player) {
-                        cost += 100;
-                    }
-                }
-                //Por las filas 2 llenas una vacía
-                if (i >= 0 && i <= 2 && j == 0) {
-                    if (board[i][j] == player && board[i][j+1] == player && board[i][j+2] == 0) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == player && board[i][j+1] == 0 && board[i][j+2] == player) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == 0 && board[i][j+1] == player && board[i][j+2] == player) {
-                        cost += 100;
-                    }
-                }
-                //Por la diagonal derecha 2 llenas una vacía
-                if (i  == 0 && j == 0) {
-                    if (board[i][j] == player && board[i+1][j+1] == player && board[i+2][j+2] == 0) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == player && board[i+1][j+1] == 0 && board[i+2][j+2] == player) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == 0 && board[i+1][j+1] == player && board[i+2][j+2] == player) {
-                        cost += 100;
-                    }
-                }
-                //Por la diagonal izquierda 2 llenas una vacía
-                if (i  == 2 && j == 2) {
-                    if (board[i][j] == player && board[i-1][j-1] == player && board[i-2][j-2] == 0) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == player && board[i-1][j-1] == 0 && board[i-2][j-2] == player) {
-                        cost += 100;
-                    }
-                    if (board[i][j] == 0 && board[i-1][j-1] == player && board[i-2][j-2] == player) {
-                        cost += 100;
-                    }
-                }
-
                  //casos en los que el jugador bloquea jugadas ganadoras
                 //Por las columnas 2 enemy una player
                 if (j >= 0 && j <= 2 && i == 0) {
-                    if (board[i][j] == enemy && board[i+1][j] == enemy && board[i+2][j] == player) {
-                        cost += 1000;
-                    }
-                    if (board[i][j] == enemy && board[i+1][j] == player && board[i+2][j] == enemy) {
-                        cost += 1000;
-                    }
-                    if (board[i][j] == player && board[i+1][j] == enemy && board[i+2][j] == enemy) {
-                        cost += 1000;
+                    if ((board[i][j] == enemy && board[i+1][j] == enemy && board[i+2][j] == player)
+                    || (board[i][j] == enemy && board[i+1][j] == player && board[i+2][j] == enemy)
+                    || (board[i][j] == player && board[i+1][j] == enemy && board[i+2][j] == enemy)) {
+                        cost += 50;
                     }
                 }
                 //Por las filas 2 enemy una player
                 if (i >= 0 && i <= 2 && j == 0) {
-                    if (board[i][j] == enemy && board[i][j+1] == enemy && board[i][j+2] == player) {
-                        cost += 1000;
-                    }
-                    if (board[i][j] == enemy && board[i][j+1] == player && board[i][j+2] == enemy) {
-                        cost += 1000;
-                    }
-                    if (board[i][j] == enemy && board[i][j+1] == enemy && board[i][j+2] == player) {
-                        cost += 1000;
+                    if ((board[i][j] == enemy && board[i][j+1] == enemy && board[i][j+2] == player)
+                    || (board[i][j] == enemy && board[i][j+1] == player && board[i][j+2] == enemy)
+                    || (board[i][j] == enemy && board[i][j+1] == enemy && board[i][j+2] == player)) {
+                        cost += 50;
                     }
                 }
                 //Por la diagonal derecha 2 enemy una player
                 if (i  == 0 && j == 0) {
-                    if (board[i][j] == enemy && board[i+1][j+1] == enemy && board[i+2][j+2] == player) {
-                        cost += 1000;
-                    }
-                    if (board[i][j] == enemy && board[i+1][j+1] == player && board[i+2][j+2] == enemy) {
-                        cost += 1000;
-                    }
-                    if (board[i][j] == player && board[i+1][j+1] == enemy && board[i+2][j+2] == enemy) {
-                        cost += 1000;
+                    if ((board[i][j] == enemy && board[i+1][j+1] == enemy && board[i+2][j+2] == player)
+                    || (board[i][j] == enemy && board[i+1][j+1] == player && board[i+2][j+2] == enemy)
+                    || (board[i][j] == player && board[i+1][j+1] == enemy && board[i+2][j+2] == enemy)) {
+                        cost += 50;
                     }
                 }
                 //Por la diagonal izquierda 2 enemy una player
                 if (i  == 2 && j == 2) {
-                    if (board[i][j] == enemy && board[i-1][j-1] == enemy && board[i-2][j-2] == player) {
-                        cost += 1000;
+                    if ((board[i][j] == enemy && board[i-1][j-1] == enemy && board[i-2][j-2] == player)
+                    || (board[i][j] == enemy && board[i-1][j-1] == player && board[i-2][j-2] == enemy)
+                    || (board[i][j] == player && board[i-1][j-1] == enemy && board[i-2][j-2] == enemy)) {
+                        cost += 50;
                     }
-                    if (board[i][j] == enemy && board[i-1][j-1] == player && board[i-2][j-2] == enemy) {
-                        cost += 1000;
+                }
+
+                //casos en los que el jugador tiene 2 jugadas adyacentes
+                //Por las columnas 2 llenas una vacía
+                if (j >= 0 && j <= 2 && i == 0) {
+                    if ( (board[i][j] == player && board[i+1][j] == player && board[i+2][j] == 0) 
+                    || (board[i][j] == player && board[i+1][j] == 0 && board[i+2][j] == player)
+                    || (board[i][j] == 0 && board[i+1][j] == player && board[i+2][j] == player)){
+                        cost += 10;
+                    }   
+                }
+                //Por las filas 2 llenas una vacía
+                if (i >= 0 && i <= 2 && j == 0) {
+                    if ((board[i][j] == player && board[i][j+1] == player && board[i][j+2] == 0)
+                    || (board[i][j] == player && board[i][j+1] == 0 && board[i][j+2] == player)
+                    || (board[i][j] == 0 && board[i][j+1] == player && board[i][j+2] == player)) {
+                        cost += 10;
                     }
-                    if (board[i][j] == player && board[i-1][j-1] == enemy && board[i-2][j-2] == enemy) {
-                        cost += 1000;
+                }
+                //Por la diagonal derecha 2 llenas una vacía
+                if (i  == 0 && j == 0) {
+                    if ((board[i][j] == player && board[i+1][j+1] == player && board[i+2][j+2] == 0)
+                    || (board[i][j] == player && board[i+1][j+1] == 0 && board[i+2][j+2] == player)  
+                    || (board[i][j] == 0 && board[i+1][j+1] == player && board[i+2][j+2] == player)) {
+                        cost += 10;
+                    }
+                }
+                //Por la diagonal izquierda 2 llenas una vacía
+                if (i  == 2 && j == 2) {
+                    if ((board[i][j] == player && board[i-1][j-1] == player && board[i-2][j-2] == 0)
+                    || (board[i][j] == player && board[i-1][j-1] == 0 && board[i-2][j-2] == player)
+                    || (board[i][j] == 0 && board[i-1][j-1] == player && board[i-2][j-2] == player)) {
+                        cost += 10;
+                    }
+                }
+
+                //casos en los que el jugador tiene 1 jugada
+                //Por las columnas
+                if (j >= 0 && j <= 2 && i == 0) {
+                    if ( (board[i][j] == 0 && board[i+1][j] == 0 && board[i+2][j] == player) 
+                    || (board[i][j] == 0 && board[i+1][j] == player && board[i+2][j] == 0)
+                    || (board[i][j] == player && board[i+1][j] == 0 && board[i+2][j] == 0)){
+                        cost += 1;
+                    }   
+                }
+                //Por las filas
+                if (i >= 0 && i <= 2 && j == 0) {
+                    if ((board[i][j] == 0 && board[i][j+1] == 0 && board[i][j+2] == player)
+                    || (board[i][j] == 0 && board[i][j+1] == player && board[i][j+2] == 0)
+                    || (board[i][j] == player && board[i][j+1] == 0 && board[i][j+2] == 0)) {
+                        cost += 1;
+                    }
+                }
+                //Por la diagonal derecha
+                if (i  == 0 && j == 0) {
+                    if ((board[i][j] == 0 && board[i+1][j+1] == 0 && board[i+2][j+2] == player)
+                    || (board[i][j] == 0 && board[i+1][j+1] == player && board[i+2][j+2] == 0)  
+                    || (board[i][j] == player && board[i+1][j+1] == 0 && board[i+2][j+2] == 0)) {
+                        cost += 1;
+                    }
+                }
+                //Por la diagonal izquierda
+                if (i  == 2 && j == 2) {
+                    if ((board[i][j] == 0 && board[i-1][j-1] == 0 && board[i-2][j-2] == player)
+                    || (board[i][j] == 0 && board[i-1][j-1] == player && board[i-2][j-2] == 0)
+                    || (board[i][j] == player && board[i-1][j-1] == 0 && board[i-2][j-2] == 0)) {
+                        cost += 1;
                     }
                 }
             }

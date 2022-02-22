@@ -6,7 +6,6 @@ public class MinMax {
     
     int board [][];
     int depth;
-    boolean isIAturn = true;
     KnowledgeBase kb = new KnowledgeBase();
     AlphaBethaPrune abp = new AlphaBethaPrune();
     Board boardView;
@@ -22,9 +21,15 @@ public class MinMax {
         if (kb.isFull(board)) {
             if (kb.gameOver(board) == -1) {
                 boardView.boardRepaint(board);
-                JOptionPane.showMessageDialog(null, "El Juego queda tablas"); 
+                JOptionPane.showMessageDialog(null, "El Juego queda tablas");
+                return; 
             }
-        
+        }
+        else if (kb.gameOver(board) != -1) {
+            String msg = kb.gameOver(board) == 1 ? "Felicidades, has vencido":"Lo siento, has sido derrotado.";
+            boardView.boardRepaint(board);
+            JOptionPane.showMessageDialog(null, msg);
+            return;
         }
         else { 
             minMax(board);
@@ -54,12 +59,6 @@ public class MinMax {
             }
         }
         board[bestRow][bestColumn] = 2;
-        System.out.println("Jugada de IA en: Fila: "+ bestRow + " Columna: " + bestColumn + " Puntuada en: " + max + "\n\n\n\n");
+        System.out.println("Jugada de IA en: Fila: "+ bestRow + " Columna: " + bestColumn + " Puntuada en: " + max);
     }
-
-    public void setIaTurn(boolean option) {
-        this.isIAturn = option;
-    }
- 
-
 }
