@@ -29,7 +29,7 @@ public class AlphaBethaPrune {
                     }
                 }
             }
-            System.out.println("Profundidad de " + depth + " Puntado " + alpha);
+            System.out.println("Maximizando a una Profundidad de " + depth + " Puntado " + alpha);
             return alpha;
         }
     }
@@ -58,7 +58,7 @@ public class AlphaBethaPrune {
                     }
                 }
             }
-            System.out.println("Profundidad de " + depth + " Puntado " + beta);
+            System.out.println("Minimizando a una Profundidad de " + depth + " Puntado " + beta);
             return beta;
         }
     }
@@ -68,7 +68,6 @@ public class AlphaBethaPrune {
         score = kb.cost(board, player);
         System.out.println("Puntuación de jugada: " + score);
         return score;
-        
     }
 
     public void setPrimalDepth(int primalDepth) {

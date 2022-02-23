@@ -37,7 +37,7 @@ public class MinMax {
         }
     }
 
-    private void minMax(int[][] board) {
+    public void minMax(int[][] board) {
         int bestRow = -1;
         int bestColumn = -1;
         int currentMax;
@@ -59,6 +59,13 @@ public class MinMax {
             }
         }
         board[bestRow][bestColumn] = 2;
+        boardView.boardRepaint(board);
+        if (kb.gameOver(board) != -1) {
+            String msg = kb.gameOver(board) == 1 ? "Felicidades, has vencido":"Lo siento, has sido derrotado.";
+            boardView.boardRepaint(board);
+            JOptionPane.showMessageDialog(null, msg);
+            return;
+        }
         System.out.println("Jugada de IA en: Fila: "+ bestRow + " Columna: " + bestColumn + " Puntuada en: " + max);
     }
 }

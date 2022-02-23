@@ -16,7 +16,7 @@ import ia.MinMax;
 public class Board extends JFrame {
 
 	int board[][] = new int[3][3];
-	int depth = 9;
+	int depth = 4;
 	MinMax ia = new MinMax(depth, this);
 
 	public Board() {
@@ -29,15 +29,15 @@ public class Board extends JFrame {
 	private void prepareBoard() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
-				board[j][i] = 0;
+				board[i][j] = 0;
 			}
 		}
 	}
 
 	private void playMove(JLabel lbl, int i, int j) {
-		if (lbl.getText().equals("0") || lbl.getText().equals("")) {
-			b0X0.setText("X");
-			board[i][j] = 1;
+		if (lbl.getText().equals("")) {
+			lbl.setText("X");
+			this.board[i][j] = 1;
 			ia.ia(board);
 		}
 		else {
