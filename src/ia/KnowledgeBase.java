@@ -37,13 +37,6 @@ public class KnowledgeBase {
         int enemy = 0;
         if (player == 1) enemy = 2; 
         else enemy=1;
-        if ((board[0][0] == enemy
-        || board[0][2] == enemy  
-        || board[2][0] == enemy
-        || board[2][2] == enemy) 
-        && board[1][1] == player) {
-            cost += 500;
-        }
         if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == player) 
             || (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == player)) {
                 //Jugada ganadora por diagonal
@@ -56,6 +49,18 @@ public class KnowledgeBase {
                 cost += 100;
             }
         }
+        if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == enemy) 
+            || (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == enemy)) {
+                //Jugada ganadora por diagonal
+                cost += -500;
+        }
+        for (int i = 0; i < 3; ++i) {
+            if (((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == enemy) 
+            || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == enemy))) {
+                //Jugada ganadora por fila o columna;
+                cost += -500;
+            }
+        }
         
 
         for (int i = 0; i < board.length; i++) {
@@ -66,7 +71,7 @@ public class KnowledgeBase {
                     if ((board[i][j] == enemy && board[i+1][j] == enemy && board[i+2][j] == player)
                     || (board[i][j] == enemy && board[i+1][j] == player && board[i+2][j] == enemy)
                     || (board[i][j] == player && board[i+1][j] == enemy && board[i+2][j] == enemy)) {
-                        cost += 50;
+                        cost += 110;
                     }
                 }
                 //Por las filas 2 enemy una player
@@ -74,7 +79,7 @@ public class KnowledgeBase {
                     if ((board[i][j] == enemy && board[i][j+1] == enemy && board[i][j+2] == player)
                     || (board[i][j] == enemy && board[i][j+1] == player && board[i][j+2] == enemy)
                     || (board[i][j] == enemy && board[i][j+1] == enemy && board[i][j+2] == player)) {
-                        cost += 50;
+                        cost += 110;
                     }
                 }
                 //Por la diagonal derecha 2 enemy una player
@@ -82,7 +87,7 @@ public class KnowledgeBase {
                     if ((board[i][j] == enemy && board[i+1][j+1] == enemy && board[i+2][j+2] == player)
                     || (board[i][j] == enemy && board[i+1][j+1] == player && board[i+2][j+2] == enemy)
                     || (board[i][j] == player && board[i+1][j+1] == enemy && board[i+2][j+2] == enemy)) {
-                        cost += 50;
+                        cost += 110;
                     }
                 }
                 //Por la diagonal izquierda 2 enemy una player
@@ -90,7 +95,40 @@ public class KnowledgeBase {
                     if ((board[i][j] == enemy && board[i-1][j-1] == enemy && board[i-2][j-2] == player)
                     || (board[i][j] == enemy && board[i-1][j-1] == player && board[i-2][j-2] == enemy)
                     || (board[i][j] == player && board[i-1][j-1] == enemy && board[i-2][j-2] == enemy)) {
-                        cost += 50;
+                        cost += 110;
+                    }
+                }
+                //casos en los que el jugador es bloqueado
+                //Por las columnas 2 llenas una vacía
+                if (j >= 0 && j <= 2 && i == 0) {
+                    if ( (board[i][j] == player && board[i+1][j] == player && board[i+2][j] == enemy) 
+                    || (board[i][j] == player && board[i+1][j] == enemy && board[i+2][j] == player)
+                    || (board[i][j] == enemy && board[i+1][j] == player && board[i+2][j] == player)){
+                        cost += -510;
+                    }   
+                }
+                //Por las filas 2 llenas una vacía
+                if (i >= 0 && i <= 2 && j == 0) {
+                    if ((board[i][j] == player && board[i][j+1] == player && board[i][j+2] == enemy)
+                    || (board[i][j] == player && board[i][j+1] == enemy && board[i][j+2] == player)
+                    || (board[i][j] == enemy && board[i][j+1] == player && board[i][j+2] == player)) {
+                        cost += -510;
+                    }
+                }
+                //Por la diagonal derecha 2 llenas una vacía
+                if (i  == 0 && j == 0) {
+                    if ((board[i][j] == player && board[i+1][j+1] == player && board[i+2][j+2] == enemy)
+                    || (board[i][j] == player && board[i+1][j+1] == enemy && board[i+2][j+2] == player)  
+                    || (board[i][j] == 0 && board[i+1][j+1] == player && board[i+2][j+2] == player)) {
+                        cost += -510;
+                    }
+                }
+                //Por la diagonal izquierda 2 llenas una vacía
+                if (i  == 2 && j == 2) {
+                    if ((board[i][j] == player && board[i-1][j-1] == player && board[i-2][j-2] == enemy)
+                    || (board[i][j] == player && board[i-1][j-1] == enemy && board[i-2][j-2] == player)
+                    || (board[i][j] == enemy && board[i-1][j-1] == player && board[i-2][j-2] == player)) {
+                        cost += -510;
                     }
                 }
 
@@ -134,7 +172,7 @@ public class KnowledgeBase {
                     if ( (board[i][j] == 0 && board[i+1][j] == 0 && board[i+2][j] == player) 
                     || (board[i][j] == 0 && board[i+1][j] == player && board[i+2][j] == 0)
                     || (board[i][j] == player && board[i+1][j] == 0 && board[i+2][j] == 0)){
-                        cost += 1;
+                        cost += 5;
                     }   
                 }
                 //Por las filas
@@ -142,7 +180,7 @@ public class KnowledgeBase {
                     if ((board[i][j] == 0 && board[i][j+1] == 0 && board[i][j+2] == player)
                     || (board[i][j] == 0 && board[i][j+1] == player && board[i][j+2] == 0)
                     || (board[i][j] == player && board[i][j+1] == 0 && board[i][j+2] == 0)) {
-                        cost += 1;
+                        cost += 5;
                     }
                 }
                 //Por la diagonal derecha
@@ -150,7 +188,7 @@ public class KnowledgeBase {
                     if ((board[i][j] == 0 && board[i+1][j+1] == 0 && board[i+2][j+2] == player)
                     || (board[i][j] == 0 && board[i+1][j+1] == player && board[i+2][j+2] == 0)  
                     || (board[i][j] == player && board[i+1][j+1] == 0 && board[i+2][j+2] == 0)) {
-                        cost += 1;
+                        cost += 5;
                     }
                 }
                 //Por la diagonal izquierda
@@ -158,7 +196,7 @@ public class KnowledgeBase {
                     if ((board[i][j] == 0 && board[i-1][j-1] == 0 && board[i-2][j-2] == player)
                     || (board[i][j] == 0 && board[i-1][j-1] == player && board[i-2][j-2] == 0)
                     || (board[i][j] == player && board[i-1][j-1] == 0 && board[i-2][j-2] == 0)) {
-                        cost += 1;
+                        cost += 5;
                     }
                 }
             }

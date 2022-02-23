@@ -48,7 +48,7 @@ public class MinMax {
                     board[i][j] = 2;
                     int tempRow = i;
                     int tempColumn = j;
-                    currentMax = abp.maxValue(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    currentMax = abp.minValue(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
                     board[i][j] = 0;
                     if (max<currentMax) {
                         max = currentMax;
