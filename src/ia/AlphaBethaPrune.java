@@ -22,14 +22,13 @@ public class AlphaBethaPrune {
                         board[i][j] = 2;
                         alpha = Math.max(alpha, this.minValue(board, depth+1, alpha, beta));
                         board[i][j] = 0;
-                        // if (alpha>=beta) {
-                        //     System.out.println("Podando a la profundidad de " + depth + " Nodos Max con alpha: " + alpha +" y beta en: " + beta);
-                        //     return beta;
-                        // }
+                         if (alpha>=beta) {
+                             System.out.println("Podando a la profundidad de " + depth + " Nodos Max con alpha: " + alpha +" y beta en: " + beta);
+                             return beta;
+                         }
                     }
                 }
             }
-            System.out.println("Maximizando a una Profundidad de " + depth + " Puntado " + alpha);
             return alpha;
         }
     }
@@ -51,14 +50,13 @@ public class AlphaBethaPrune {
                         board[i][j] = 1;
                         beta = Math.min(beta, this.maxValue(board, depth+1, alpha, beta));
                         board[i][j] = 0;
-                        // if (alpha>=beta) {
-                        //     System.out.println("Podando a la profundidad de " + depth + " Nodos Min con alpha: " + alpha +" y beta en: " + beta);
-                        //     return alpha;
-                        // }
+                         if (alpha>=beta) {
+                             System.out.println("Podando a la profundidad de " + depth + " Nodos Min con alpha: " + alpha +" y beta en: " + beta);
+                             return alpha;
+                         }
                     }
                 }
             }
-            System.out.println("Minimizando a una Profundidad de " + depth + " Puntado " + beta);
             return beta;
         }
     }
@@ -66,7 +64,6 @@ public class AlphaBethaPrune {
     public int heuristics(int[][] board, int player) {
         int score = 0;
         score = kb.cost(board, player);
-        System.out.println("Puntuación de jugada: " + score);
         return score;
     }
 

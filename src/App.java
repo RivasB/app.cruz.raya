@@ -1,4 +1,4 @@
-import interfaces.Board;
+import interfaces.Splash;
 public class App {
     public static void main(String[] args) throws Exception {
 
@@ -13,6 +13,6 @@ public class App {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        new Board();
+        new Splash(true);
     }
 }
