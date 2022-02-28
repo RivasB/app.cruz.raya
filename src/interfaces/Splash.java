@@ -52,8 +52,11 @@ public class Splash extends JFrame {
 		if (comboBox1.getSelectedIndex()==2) {
 			deph = 9;
 		}
+		else if (comboBox1.getSelectedIndex()==1) {
+			deph = 5;
+		}
 		else  {
-			deph = comboBox1.getSelectedIndex();
+			deph = 1;
 		}
 		System.out.println("Profundidad de algoritmo: "+ deph);
 	}

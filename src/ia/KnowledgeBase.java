@@ -155,9 +155,6 @@ public class KnowledgeBase {
                 }
             }
         }
-        if (player==1) {
-            cost = cost * -1;
-        }
         String jugador = player == 1 ? "Humano":"IA";
         System.out.println("Jugada de: "+ jugador +" puntuada en: " + cost);
         return cost;
