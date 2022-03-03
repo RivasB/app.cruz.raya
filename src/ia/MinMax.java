@@ -22,6 +22,7 @@ public class MinMax {
             if (kb.gameOver(board) == -1) {
                 boardView.boardRepaint(board);
                 JOptionPane.showMessageDialog(null, "El Juego queda tablas");
+                boardView.endGame();
                 return; 
             }
         }
@@ -29,6 +30,7 @@ public class MinMax {
             String msg = kb.gameOver(board) == 1 ? "Felicidades, has vencido":"Lo siento, has sido derrotado.";
             boardView.boardRepaint(board);
             JOptionPane.showMessageDialog(null, msg);
+            boardView.endGame();
             return;
         }
         else { 
@@ -46,9 +48,11 @@ public class MinMax {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j] == 0) {
                     board[i][j] = 2;
+                    System.out.print("Busqueda en profundidad para: Fila: "+ i + " Columna: " + j);
                     int tempRow = i;
                     int tempColumn = j;
                     currentMax = abp.minMaxAlphaBetha(board, 0, 1, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    System.out.println(" Valor: " + currentMax);
                     board[i][j] = 0;
                     if (max<currentMax) {
                         max = currentMax;
@@ -66,6 +70,6 @@ public class MinMax {
             JOptionPane.showMessageDialog(null, msg);
             return;
         }
-        System.out.println("Jugada de IA en: Fila: "+ bestRow + " Columna: " + bestColumn + " Puntuada en: " + max);
+        System.out.println("Jugada óptima en: Fila: "+ bestRow + " Columna: " + bestColumn + " Puntuada en: " + max + "\n");
     }
 }

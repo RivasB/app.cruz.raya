@@ -50,7 +50,7 @@ public class Board extends JFrame {
 		ia = new MinMax(depth, this);
 	}
 
-	private void prepareBoard() {
+	public void prepareBoard() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				board[i][j] = 0;
@@ -104,6 +104,11 @@ public class Board extends JFrame {
 		b2X2.setText(Integer.toString(board[2][2]));
 		charReplace(b2X2);
     }
+	public void endGame() {
+		board = new int[3][3];
+		prepareBoard();
+		boardRepaint(board);
+	}
 
 	private void playSound(String sound){
 		try {
@@ -393,4 +398,103 @@ public class Board extends JFrame {
 	public JLabel b2X2;
 	private JLabel label1;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
+
+    /**
+     * @return JMenuBar return the menuBar1
+     */
+    public JMenuBar getMenuBar1() {
+        return menuBar1;
+    }
+
+    /**
+     * @param menuBar1 the menuBar1 to set
+     */
+    public void setMenuBar1(JMenuBar menuBar1) {
+        this.menuBar1 = menuBar1;
+    }
+
+    /**
+     * @return JMenu return the menu1
+     */
+    public JMenu getMenu1() {
+        return menu1;
+    }
+
+    /**
+     * @param menu1 the menu1 to set
+     */
+    public void setMenu1(JMenu menu1) {
+        this.menu1 = menu1;
+    }
+
+    /**
+     * @return JMenuItem return the menuItem1
+     */
+    public JMenuItem getMenuItem1() {
+        return menuItem1;
+    }
+
+    /**
+     * @param menuItem1 the menuItem1 to set
+     */
+    public void setMenuItem1(JMenuItem menuItem1) {
+        this.menuItem1 = menuItem1;
+    }
+
+    /**
+     * @return JMenuItem return the menuItem2
+     */
+    public JMenuItem getMenuItem2() {
+        return menuItem2;
+    }
+
+    /**
+     * @param menuItem2 the menuItem2 to set
+     */
+    public void setMenuItem2(JMenuItem menuItem2) {
+        this.menuItem2 = menuItem2;
+    }
+
+    /**
+     * @return JPanel return the panel2
+     */
+    public JPanel getPanel2() {
+        return panel2;
+    }
+
+    /**
+     * @param panel2 the panel2 to set
+     */
+    public void setPanel2(JPanel panel2) {
+        this.panel2 = panel2;
+    }
+
+    /**
+     * @return JPanel return the panel1
+     */
+    public JPanel getPanel1() {
+        return panel1;
+    }
+
+    /**
+     * @param panel1 the panel1 to set
+     */
+    public void setPanel1(JPanel panel1) {
+        this.panel1 = panel1;
+    }
+
+    /**
+     * @return JLabel return the label1
+     */
+    public JLabel getLabel1() {
+        return label1;
+    }
+
+    /**
+     * @param label1 the label1 to set
+     */
+    public void setLabel1(JLabel label1) {
+        this.label1 = label1;
+    }
+
 }

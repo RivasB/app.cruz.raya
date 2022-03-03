@@ -6,13 +6,7 @@ public class AlphaBethaPrune {
     private int primalDepth;
 
     public int minMaxAlphaBetha(int[][] board, int depth, int player, int alpha, int beta) {
-        if (kb.gameOver(board) != -1) {
-            return this.heuristics(board);
-        } 
-        else if(kb.isFull(board)) {
-            return this.heuristics(board);
-        }
-        else if(primalDepth < depth) {
+        if ((kb.gameOver(board) != -1) || kb.isFull(board) || primalDepth < depth) {
             return this.heuristics(board);
         }
         else {
@@ -24,28 +18,21 @@ public class AlphaBethaPrune {
                             beta = Math.min(beta, this.minMaxAlphaBetha(board, depth+1, 2, alpha, beta));
                             board[i][j] = 0;
                              if (alpha>=beta) {
-                                System.out.println("Podando a la profundidad de " + depth + " Nodos Min con alpha: " + alpha +" y beta en: " + beta);
                                 return alpha;
                             }   
                         }
                         else {
-                            board[i][j] = 2;
-                            alpha = Math.max(alpha, this.minMaxAlphaBetha(board, depth+1, 1, alpha, beta));
+                            alpha = Math.max(alpha, this.minMaxAlphaBetha(board, depth+1, 1, alpha, beta));;
                             board[i][j] = 0;
                             if (alpha>=beta) {
-                                System.out.println("Podando a la profundidad de " + depth + " Nodos Max con alpha: " + alpha +" y beta en: " + beta);
                                 return beta;
                             }
                         }
                     }
                 }
             }
-            if (player == 1) {
-                return beta;
-            }
-            else {
-                return alpha;
-            }   
+            int alphaOrBeta = player==1 ? beta:alpha;
+            return alphaOrBeta;   
         }
     }
 
